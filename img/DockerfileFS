@@ -1,0 +1,9 @@
+# for memory:
+# cd current dir and input:
+# docker build -t cr80/20200909_fs:0.0.1 . -f  ./DockerfileFS
+# docker push cr80/20200909_fs:0.0.1
+
+FROM bdfoster/freeswitch
+WORKDIR /usr/src/app
+RUN apt-get update -y && apt-get install -y gettext-base sngrep net-tools
+

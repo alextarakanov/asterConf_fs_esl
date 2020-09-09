@@ -1,0 +1,32 @@
+version: "2.4"
+networks:
+  gcs:
+    name: ${CONF2020_NETWORK_NAME}
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: ${CONF2020_NETWORK_NAME}
+    ipam:
+      config:
+        - subnet: ${CONF2020_SUBNET}
+          gateway: ${CONF2020_GW}
+##################################################
+services:
+  conf_fs:
+    env_file: ./.env
+    networks:
+      gcs:
+        ipv4_address: ${FS_HOST}
+    image: ${FS_IMG}
+    restart: always
+    container_name: ${FS_NAME}
+    hostname: ${FS_NAME}
+    volumes:
+      - ./freeswitch/template:/etc/freeswitch/template
+      - ./freeswitch/docker-entrypoint.sh:/docker-entrypoint.sh
+    working_dir: /etc/freeswitch/
+    ports:
+      - ${FS_PORT_INTERNAL}:${FS_PORT_INTERNAL}/udp
+      - ${FS_PORT_EXTERNAL}:${FS_PORT_EXTERNAL}/udp
+      - ${FS_MEDIA_START}-${FS_MEDIA_END}:${FS_MEDIA_START}-${FS_MEDIA_END}/udp
+    entrypoint: ["/docker-entrypoint.sh"]
+##################################################

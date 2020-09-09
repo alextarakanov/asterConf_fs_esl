@@ -1,0 +1,11 @@
+#this is dockerFile only for create own Image for my scripts.
+# pip freeze - make requirements.txt file
+
+FROM python:3.8.3-buster
+WORKDIR /usr/src/app
+COPY requirements.txt ./
+RUN apt-get update -y && apt-get install -y libc6-i386 lib32stdc++6 && pip install --no-cache-dir -r requirements.txt
+# in this dir I execute:
+# docker build -t cr80/python38_gcs:v_200616 .
+# then set docker-compose file
+# docker exec -i -t ws_server /bin/bash
