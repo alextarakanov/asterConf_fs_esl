@@ -1,0 +1,9 @@
+<include>
+  <extension name="asterConf2020_03">
+    <condition field="destination_number" expression="^(03)$">
+        <action application="log" data="ERR start ESL example in sync mode"/>
+	<action application="socket" data="172.43.0.11:8782"/>
+        <action application="log" data="ERR set var ip: ${ip}"/>
+    </condition>
+  </extension>
+</include>

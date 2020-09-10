@@ -1,0 +1,12 @@
+<include>
+  <extension name="asterConf2020_01">
+    <condition field="destination_number" expression="^(01)$">
+	<action application="set" data="ringback=%(2000, 4000, 440.0, 480.0)"/>
+        <action application="set" data="ringTimeout=${expr(randomize(&x);random(0,3,&x)*1000+1000)}"/>
+	<action application="log" data="WARNING start ring. ringTimeout ${ringTimeout}"/>
+        <action application="sleep" data="${ringTimeout}"/>
+	<action application="log" data="ERR stop ring"/>
+	<action application="hangup"/>
+    </condition>
+  </extension>
+</include>

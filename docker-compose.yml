@@ -1,6 +1,6 @@
 version: "2.4"
 networks:
-  gcs:
+  acn:
     name: ${CONF2020_NETWORK_NAME}
     driver: bridge
     driver_opts:
@@ -14,7 +14,7 @@ services:
   conf_fs:
     env_file: ./.env
     networks:
-      gcs:
+      acn:
         ipv4_address: ${FS_HOST}
     image: ${FS_IMG}
     restart: always
@@ -22,6 +22,7 @@ services:
     hostname: ${FS_NAME}
     volumes:
       - ./freeswitch/template:/etc/freeswitch/template
+      - ./freeswitch/dialplan/default:/etc/freeswitch/dialplan/default:ro
       - ./freeswitch/docker-entrypoint.sh:/docker-entrypoint.sh
     working_dir: /etc/freeswitch/
     ports:
@@ -29,4 +30,19 @@ services:
       - ${FS_PORT_EXTERNAL}:${FS_PORT_EXTERNAL}/udp
       - ${FS_MEDIA_START}-${FS_MEDIA_END}:${FS_MEDIA_START}-${FS_MEDIA_END}/udp
     entrypoint: ["/docker-entrypoint.sh"]
-##################################################
+  ##################################################
+  conf_python:
+    env_file: ./.env
+    networks:
+      acn:
+        ipv4_address: ${PYTHON_HOST}
+    image: ${PYTHON_IMG}
+    restart: always
+    container_name: ${PYTHON_NAME}
+    hostname: ${PYTHON_NAME}
+    volumes:
+      - ./python:/data
+    working_dir: /data
+    ports:
+      - ${PYTHON_PORT}:${PYTHON_PORT}
+    entrypoint: ["/data/docker-entrypoint.sh"]
