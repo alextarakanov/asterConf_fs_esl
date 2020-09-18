@@ -4,7 +4,7 @@
 FROM python:3.8.3-buster
 WORKDIR /
 COPY requirements.txt ./
-RUN apt-get update -y && apt-get install -y libc6-i386 lib32stdc++6 expect swig && pip install --no-cache-dir -r requirements.txt
+RUN apt-get update -y && apt-get install -y libc6-i386 lib32stdc++6 expect swig telnet netcat && pip install --no-cache-dir -r requirements.txt
 # in this dir I execute:
 # docker build -t cr80/python38_gcs:v_200616 . -f  ./DockerfilePython
 # then set docker-compose file

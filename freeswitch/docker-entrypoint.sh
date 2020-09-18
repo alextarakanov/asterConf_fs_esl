@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-rm -f /etc/freeswitch/sip_profiles/internal.xml
+# rm -f /etc/freeswitch/sip_profiles/internal.xml
 rm -f /etc/freeswitch/sip_profiles/internal-ipv6.xml
 
 rm -f /etc/freeswitch/sip_profiles/external-ipv6.xml

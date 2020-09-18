@@ -1,0 +1,9 @@
+<include>
+  <extension name="asterConf2020_04">
+    <condition field="destination_number" expression="^(04)$">
+        <action application="log" data="ERR bridge"/>
+	<action application="socket" data="172.43.0.11:8782 full sync"/>
+        <action application="log" data="ERR end ${new_var}"/>
+    </condition>
+  </extension>
+</include>

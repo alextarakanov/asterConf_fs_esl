@@ -20,6 +20,7 @@ if res:
                 print(f'getType {e.getType()}')
                 print('='*100)
                 print(event_json)
+
             except Exception as e:
                 print(f'except: {e}')
 
